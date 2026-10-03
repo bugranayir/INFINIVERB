@@ -1,0 +1,75 @@
+# Build output
+build/
+build-*/
+cmake-build-*/
+out/
+*.o
+*.a
+*.dylib
+*.so
+*.dll
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+compile_commands.json
+_deps/
+
+# JUCE
+JuceLibraryCode/
+Builds/
+*.vst3
+*.component
+*.app
+
+# Xcode
+*.xcodeproj/
+*.xcworkspace/
+DerivedData/
+xcuserdata/
+
+# macOS
+.DS_Store
+._*
+
+# Generated audio and images
+measurements/
+*.wav
+*.png
+# ...except the panel artwork and the manual's images, which are source.
+!plugin/assets/*.png
+!docs/manual/*.png
+
+# Editors
+.vscode/
+.idea/
+
+# Local tool settings
+.claude/
+
+# Local, personal configuration (signing identity and the like) — never committed
+*.local.sh
+*.local.txt
+
+# Phase 0: generated projects of the listening rigs. Only their sources are tracked.
+phase0/*/*/
+
+# Local reading material, never committed
+references/
+
+# Ableton test sessions used for listening — scratch, not project content
+TestProject Project/
+*.als
+Icon?
+
+# CMake build tree
+build/
+build-*/
+
+# Release packages (scripts/package_mac.sh) — built artefacts, not source
+dist/
+
+# Generated audio
+measurements/

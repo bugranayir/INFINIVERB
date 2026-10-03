@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<INFINIVERBPreset name="Dark Matter" category="Experimental" order="21">
+  <PARAM id="mix" value="50.0"/>
+  <PARAM id="gravity" value="-80.0"/>
+  <PARAM id="size" value="100.0"/>
+  <PARAM id="predelay" value="300.0"/>
+  <PARAM id="lo" value="130.0"/>
+  <PARAM id="hi" value="35.0"/>
+  <PARAM id="modDepth" value="60.0"/>
+  <PARAM id="modRate" value="5.0"/>
+  <PARAM id="feedback" value="40.0"/>
+  <PARAM id="resonance" value="50.0"/>
+  <PARAM id="inputGain" value="0.0"/>
+  <PARAM id="outputGain" value="0.0"/>
+</INFINIVERBPreset>

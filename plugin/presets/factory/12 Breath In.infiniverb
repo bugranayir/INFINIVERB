@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<INFINIVERBPreset name="Breath In" category="Swells" order="12">
+  <PARAM id="mix" value="35.0"/>
+  <PARAM id="gravity" value="-35.0"/>
+  <PARAM id="size" value="25.0"/>
+  <PARAM id="predelay" value="40.0"/>
+  <PARAM id="lo" value="90.0"/>
+  <PARAM id="hi" value="100.0"/>
+  <PARAM id="modDepth" value="25.0"/>
+  <PARAM id="modRate" value="20.0"/>
+  <PARAM id="feedback" value="0.0"/>
+  <PARAM id="resonance" value="0.0"/>
+  <PARAM id="inputGain" value="0.0"/>
+  <PARAM id="outputGain" value="0.0"/>
+</INFINIVERBPreset>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<INFINIVERBPreset name="Seasick Hall" category="Modulated" order="17">
+  <PARAM id="mix" value="35.0"/>
+  <PARAM id="gravity" value="45.0"/>
+  <PARAM id="size" value="55.0"/>
+  <PARAM id="predelay" value="0.0"/>
+  <PARAM id="lo" value="90.0"/>
+  <PARAM id="hi" value="85.0"/>
+  <PARAM id="modDepth" value="100.0"/>
+  <PARAM id="modRate" value="65.0"/>
+  <PARAM id="feedback" value="0.0"/>
+  <PARAM id="resonance" value="0.0"/>
+  <PARAM id="inputGain" value="0.0"/>
+  <PARAM id="outputGain" value="0.0"/>
+</INFINIVERBPreset>

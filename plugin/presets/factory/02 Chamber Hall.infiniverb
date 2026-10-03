@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<INFINIVERBPreset name="Chamber Hall" category="Halls" order="2">
+  <PARAM id="mix" value="28.0"/>
+  <PARAM id="gravity" value="20.0"/>
+  <PARAM id="size" value="35.0"/>
+  <PARAM id="predelay" value="15.0"/>
+  <PARAM id="lo" value="90.0"/>
+  <PARAM id="hi" value="92.0"/>
+  <PARAM id="modDepth" value="25.0"/>
+  <PARAM id="modRate" value="18.0"/>
+  <PARAM id="feedback" value="0.0"/>
+  <PARAM id="resonance" value="0.0"/>
+  <PARAM id="inputGain" value="0.0"/>
+  <PARAM id="outputGain" value="0.0"/>
+</INFINIVERBPreset>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<INFINIVERBPreset name="Open Horizon" category="Ambient" order="9">
+  <PARAM id="mix" value="35.0"/>
+  <PARAM id="gravity" value="60.0"/>
+  <PARAM id="size" value="80.0"/>
+  <PARAM id="predelay" value="220.0"/>
+  <PARAM id="lo" value="75.0"/>
+  <PARAM id="hi" value="95.0"/>
+  <PARAM id="modDepth" value="50.0"/>
+  <PARAM id="modRate" value="14.0"/>
+  <PARAM id="feedback" value="10.0"/>
+  <PARAM id="resonance" value="0.0"/>
+  <PARAM id="inputGain" value="0.0"/>
+  <PARAM id="outputGain" value="0.0"/>
+</INFINIVERBPreset>

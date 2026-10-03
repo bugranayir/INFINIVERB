@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>INFINIVERB User Manual</title>
+<!--
+  The INFINIVERB user manual. Rendered to plugin/assets/INFINIVERB-Manual.pdf by
+  scripts/build_manual.sh, which replaces {{VERSION}} with the version in
+  CMakeLists.txt. Plain descriptions only: what each control does.
+-->
+<style>
+  @font-face { font-family: "Space Mono"; font-weight: 700; src: url("../../plugin/assets/SpaceMono-Bold.ttf"); }
+
+  @page { size: A4; margin: 18mm 18mm 20mm 18mm; }
+
+  :root { --ink: #1b1b1b; --muted: #5d5d5d; --rule: #d9d9d9; --accent: #0b7d6c; }
+
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 9.6pt; line-height: 1.45;
+         color: var(--ink); margin: 0; }
+
+  .title { display: flex; justify-content: space-between; align-items: baseline; }
+  h1 { font-family: "Space Mono", Menlo, monospace; font-size: 30pt; letter-spacing: 0.06em; margin: 0; }
+  .title a { color: var(--ink); text-decoration: none; font-size: 10.5pt; letter-spacing: 0.04em; }
+  .subtitle { font-size: 11pt; color: var(--muted); margin: 2pt 0 0 0; }
+  .doc { font-size: 9pt; color: var(--muted); margin: 10pt 0 14pt 0; letter-spacing: 0.04em; text-transform: uppercase; }
+
+  h2 { font-size: 10.5pt; letter-spacing: 0.14em; text-transform: uppercase; margin: 20pt 0 6pt 0;
+       padding-bottom: 4pt; border-bottom: 1.2pt solid var(--ink); break-after: avoid; }
+  h2.new-page { break-before: page; }
+  thead { display: table-header-group; }
+  h3 { font-size: 9.8pt; margin: 12pt 0 3pt 0; break-after: avoid; }
+  p { margin: 0 0 6pt 0; }
+  ul { margin: 0 0 6pt 0; padding-left: 14pt; }
+  li { margin: 0 0 2pt 0; }
+
+  img.panel { width: 100%; display: block; margin: 6pt 0 2pt 0; border-radius: 2pt; }
+  .caption { font-size: 8pt; color: var(--muted); margin-bottom: 4pt; }
+
+  table { width: 100%; border-collapse: collapse; margin: 4pt 0 8pt 0; }
+  th { text-align: left; font-size: 7.8pt; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+       font-weight: 600; padding: 3pt 6pt 3pt 0; border-bottom: 0.8pt solid var(--ink); }
+  td { vertical-align: top; padding: 5pt 6pt 5pt 0; border-bottom: 0.6pt solid var(--rule); }
+  tr { break-inside: avoid; }
+  td.name { width: 19%; font-weight: 700; letter-spacing: 0.03em; }
+  td.range { width: 21%; color: var(--muted); font-size: 8.8pt; }
+  p a { color: var(--ink); }
+  .mono { font-family: "Space Mono", Menlo, monospace; font-size: 8.6pt; }
+
+  .end { break-before: page; text-align: center; padding-top: 70mm; }
+  .end img { width: 62mm; display: block; margin: 0 auto 10mm auto; }
+  .end p { margin: 0 0 4pt 0; }
+  .end a { color: var(--ink); text-decoration: none; font-size: 11pt; letter-spacing: 0.04em; }
+  .end .credit { color: var(--muted); margin-top: 10pt; }
+  .end .version { font-family: "Space Mono", Menlo, monospace; font-size: 9pt; margin-top: 4pt; }
+</style>
+</head>
+<body>
+
+<div class="title">
+  <h1>INFINIVERB</h1>
+  <a href="https://fatbird-studios.com">fatbird-studios.com</a>
+</div>
+<p class="subtitle">Stereo Space Reverberation Unit</p>
+<p class="doc">User Manual &middot; Version {{VERSION}}</p>
+
+<img class="panel" src="panel.jpg" alt="The INFINIVERB panel">
+<p class="caption">The INFINIVERB panel.</p>
+
+<h2>Overview</h2>
+<p>INFINIVERB is an algorithmic stereo reverb. It takes a mono or stereo input and produces a stereo output.
+The input is summed to mono before the reverb; the dry signal keeps its stereo image.</p>
+<p>Signal path: INPUT &rarr; PREDELAY &rarr; reverb (GRAVITY, SIZE, modulation, LO and HI) &rarr; RESONANCE &rarr;
+MIX &rarr; LEVEL. FEEDBACK returns the reverb output to the point before PREDELAY.</p>
+
+<h2>Installation</h2>
+<table>
+  <tr><td class="name">macOS</td><td>macOS 11 or later on Apple Silicon; macOS 10.13 or later on Intel.</td></tr>
+  <tr><td class="name">Windows</td><td>Windows 10 or later, 64-bit.</td></tr>
+</table>
+
+<h2>Using the Controls</h2>
+<ul>
+  <li>Drag a knob up or down to turn it, or use the scroll wheel over it.</li>
+  <li>Double-click a knob to return it to its default value.</li>
+  <li>GRAVITY returns to 0 when dragged close to the centre.</li>
+  <li>While a knob is turned, the display shows its name and value.</li>
+</ul>
+
+<h2>Display</h2>
+<ul>
+  <li><b>Preset</b> (top left): number and name of the current preset. It shows <span class="mono">-- CUSTOM</span>
+      when the current settings do not come from a preset in the list.</li>
+  <li><b>Gravity</b> (top right): the GRAVITY value. While another knob is turned, its name and value are shown here
+      for 1.5&nbsp;s.</li>
+  <li><b>Decay</b>: the decay time set by GRAVITY.</li>
+  <li><b>Envelope</b>: the level of the reverb over the first 6&nbsp;seconds with the current settings &mdash;
+      predelay, rise and decay.</li>
+  <li><b>Indicators</b>: KILL lights while KILL is on; A or B shows the HOT SWITCH slot.</li>
+  <li>Click the display to open the Preset Browser.</li>
+</ul>
+
+<h2 class="new-page">Controls</h2>
+<table>
+  <thead><tr><th>Control</th><th>Range &middot; default</th><th>Function</th></tr></thead>
+  <tr><td class="name">GRAVITY</td><td class="range">&minus;100 to +100 (scale &minus;5 to +5) &middot; 0</td>
+      <td>Sets the decay time and the shape of the reverb envelope. At 0 the decay time is 1.4&nbsp;s.
+      From 0 to +100 the decay time increases to 60&nbsp;s. From 0 to &minus;100 the reverb starts as a swell:
+      it rises over a period that increases from 0.03&nbsp;s to 1.45&nbsp;s, then decays over a time that increases
+      from 1.4&nbsp;s to 4.7&nbsp;s. The rise period also changes with SIZE.</td></tr>
+  <tr><td class="name">SIZE</td><td class="range">0 to 100&nbsp;% (scale 0 to 10) &middot; 30&nbsp;%</td>
+      <td>Sets the size of the space: the reverb's delay lengths, from about 42&nbsp;ms to about 1&nbsp;s.
+      The decay time set by GRAVITY does not change with SIZE. Moving SIZE while audio plays shifts the pitch of
+      the tail during the movement.</td></tr>
+  <tr><td class="name">FEEDBACK</td><td class="range">0 to 100&nbsp;% (scale 0 to 10) &middot; 0&nbsp;%</td>
+      <td>Returns the reverb output to its input, before PREDELAY. Each repeat is delayed by PREDELAY again and is
+      darker than the one before. At high settings the reverb sustains; its level is limited and does not keep
+      rising.</td></tr>
+  <tr><td class="name">MIX</td><td class="range">0 to 100&nbsp;% (scale 0 to 10) &middot; 50&nbsp;%</td>
+      <td>Balance between the dry signal and the reverb, as an equal-power crossfade. 0&nbsp;% is dry only;
+      100&nbsp;% is reverb only.</td></tr>
+  <tr><td class="name">INPUT</td><td class="range">&minus;12 to +12&nbsp;dB &middot; 0&nbsp;dB</td>
+      <td>Input level. Applies to the whole input, including the dry signal.</td></tr>
+  <tr><td class="name">PREDELAY</td><td class="range">0 to 2000&nbsp;ms &middot; 0&nbsp;ms</td>
+      <td>Delay before the reverb. It is inside the FEEDBACK loop, so with FEEDBACK above 0 every repeat is delayed
+      again. Changes crossfade over 30&nbsp;ms.</td></tr>
+  <tr><td class="name">DEPTH</td><td class="range">0 to 100&nbsp;% (min to max) &middot; 40&nbsp;%</td>
+      <td>Amount of delay-time modulation inside the reverb.</td></tr>
+  <tr><td class="name">RATE</td><td class="range">0 to 100&nbsp;% (slow to fast) &middot; 20&nbsp;%</td>
+      <td>Speed of the modulation, from 0.1&nbsp;Hz to 5&nbsp;Hz.</td></tr>
+  <tr><td class="name">LO</td><td class="range">cut &minus;5 to boost +5, flat at the centre &middot; centre</td>
+      <td>Amount of low frequencies (below about 500&nbsp;Hz) in the reverb tail. The filter is inside the reverb's
+      decay path. Below the centre, the low frequencies are lower and decay faster. Above the centre, they are
+      higher and decay more slowly, up to three times the decay time. The display shows the filter gain, from
+      &minus;24&nbsp;dB to +6&nbsp;dB.</td></tr>
+  <tr><td class="name">HI</td><td class="range">cut &minus;5 to boost +5, flat at the centre &middot; centre</td>
+      <td>As LO, for the high frequencies (above about 4.2&nbsp;kHz).</td></tr>
+  <tr><td class="name">RESONANCE</td><td class="range">0 to 100&nbsp;% (min to max) &middot; 0&nbsp;%</td>
+      <td>Adds a resonant peak at the LO and HI corner frequencies, at the reverb output. It has no effect while LO
+      and HI are at the centre. The further LO or HI is from the centre, the higher its peak, up to +12&nbsp;dB.</td></tr>
+  <tr><td class="name">LEVEL</td><td class="range">&minus;12 to +12&nbsp;dB &middot; 0&nbsp;dB</td>
+      <td>Output level of the dry signal and the reverb together.</td></tr>
+  <tr><td class="name">KILL</td><td class="range">on / off &middot; off</td>
+      <td>Stops the input from entering the reverb, with an 8&nbsp;ms fade. The dry signal and the reverb already
+      sounding continue. With FEEDBACK above 0 the reverb keeps circulating.</td></tr>
+  <tr><td class="name">BYPASS</td><td class="range">on / off &middot; off</td>
+      <td>Passes the input through unprocessed, with a 10&nbsp;ms crossfade. The reverb is cleared while bypassed.
+      The bypass indicator lights and the display dims. The host's bypass uses the same control.</td></tr>
+  <tr><td class="name">PRESET DOWN / UP</td><td class="range">&nbsp;</td>
+      <td>Loads the previous or next preset in the list (factory presets, then user presets). The list wraps at both
+      ends.</td></tr>
+  <tr><td class="name">HOT SWITCH A / B</td><td class="range">A / B &middot; A</td>
+      <td>Two complete settings. Switching stores the current settings in the slot being left and recalls the other.
+      A slot that has not been used yet starts as a copy of the current settings. KILL and BYPASS are not part of a
+      setting. Both slots are saved with the host session.</td></tr>
+</table>
+
+<h2>Preset Browser</h2>
+<p>Open the browser by clicking the display. Close it with Cancel, the &times; button, Esc, or a click outside it.</p>
+<img class="panel" src="browser.jpg" alt="The preset browser">
+<p class="caption">The preset browser.</p>
+<table>
+  <tr><td class="name">Bank</td><td>Factory, User or Favourites.</td></tr>
+  <tr><td class="name">Category</td><td>All, Halls, Plates, Ambient, Swells, Infinite, Modulated, Experimental.</td></tr>
+  <tr><td class="name">Preset</td><td>The presets in the selected bank and category, with their numbers. Click the star
+      beside a preset to add it to or remove it from Favourites.</td></tr>
+  <tr><td class="name">Search</td><td>Shows only the presets whose names contain the text.</td></tr>
+  <tr><td class="name">&#9733; button</td><td>Shows only favourite presets.</td></tr>
+  <tr><td class="name">Save</td><td>Saves the current settings over the selected user preset. With a factory preset
+      selected, it asks for a name and saves a new user preset.</td></tr>
+  <tr><td class="name">+ New</td><td>Saves the current settings as a new user preset; asks for a name and a category.</td></tr>
+  <tr><td class="name">Rename, Delete</td><td>Rename or delete the selected user preset. Factory presets cannot be
+      renamed or deleted.</td></tr>
+  <tr><td class="name">View Manual</td><td>Opens this manual.</td></tr>
+  <tr><td class="name">Load</td><td>Loads the selected preset. Double-clicking a preset or pressing Return (Enter) does the same.</td></tr>
+</table>
+<p>A preset stores every knob setting. It does not store KILL, BYPASS or the HOT SWITCH slot.</p>
+
+<h2>Host Integration</h2>
+<table>
+  <tr><td class="name">Channels</td><td>Mono in, stereo out; stereo in, stereo out.</td></tr>
+  <tr><td class="name">Sample rates</td><td>44.1 to 192&nbsp;kHz. At 88.2&nbsp;kHz and above, the reverb runs internally at
+      44.1 or 48&nbsp;kHz, so it sounds the same at every sample rate. The dry signal stays at the session's rate.</td></tr>
+  <tr><td class="name">Latency</td><td>None.</td></tr>
+  <tr><td class="name">Automation</td><td>Every control can be automated. HOT SWITCH changes the controls that differ
+      between A and B as if they had been turned by hand; if those controls are automated, the host suspends their
+      automation until it is re-enabled.</td></tr>
+  <tr><td class="name">Reverb tail</td><td>INFINIVERB tells the host how long the reverb continues after the input
+      stops, from the current settings. With FEEDBACK above 0 it reports an endless tail.</td></tr>
+  <tr><td class="name">Output limit</td><td>The reverb signal is limited to 0&nbsp;dBFS at the output. Below
+      &minus;0.9&nbsp;dBFS the limiter has no effect. The dry signal is not limited.</td></tr>
+</table>
+
+<h2>Licence</h2>
+<p>INFINIVERB is free software, licensed under the GNU Affero General Public License, version 3. The complete source
+code for each release is provided with it. The names INFINIVERB and fatbird Studios and the fatbird Studios logo
+are not covered by that licence.</p>
+<p>Parts of the interface artwork are adapted from a Figma Community design file by Coke Stuyck
+(<a href="https://www.figma.com/community/file/1408098656188006777">figma.com/community/file/1408098656188006777</a>),
+licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. fatbird Studios rearranged,
+resized and relabelled them and added new elements.</p>
+<p>INFINIVERB includes third-party software. Their licences and notices are in THIRD-PARTY-NOTICES.txt, provided with
+the installer and with the source code.</p>
+
+<div class="end">
+  <img src="fatbird-logo.png" alt="fatbird Studios">
+  <p><a href="https://fatbird-studios.com">fatbird-studios.com</a></p>
+  <p class="credit">Artwork design by Buğra Nayir</p>
+  <p class="version">INFINIVERB &middot; Version {{VERSION}}</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<INFINIVERBPreset name="Echo Chamber" category="Experimental" order="20">
+  <PARAM id="mix" value="40.0"/>
+  <PARAM id="gravity" value="10.0"/>
+  <PARAM id="size" value="85.0"/>
+  <PARAM id="predelay" value="450.0"/>
+  <PARAM id="lo" value="80.0"/>
+  <PARAM id="hi" value="70.0"/>
+  <PARAM id="modDepth" value="20.0"/>
+  <PARAM id="modRate" value="20.0"/>
+  <PARAM id="feedback" value="55.0"/>
+  <PARAM id="resonance" value="0.0"/>
+  <PARAM id="inputGain" value="0.0"/>
+  <PARAM id="outputGain" value="0.0"/>
+</INFINIVERBPreset>
