@@ -11,7 +11,7 @@ endif()
 # RVB1 — working name. See PROJECT_DECISIONS.md for the product name decision.
 # C is required as well as C++: JUCE compiles C sources, and on macOS it also
 # needs the Objective-C++ toolchain for the CoreAudio and AppKit wrappers.
-project(RVB1 VERSION 0.1.0 LANGUAGES C CXX)
+project(RVB1 VERSION 1.0.0 LANGUAGES C CXX)
 
 if(APPLE)
     enable_language(OBJC)

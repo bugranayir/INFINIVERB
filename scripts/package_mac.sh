@@ -7,8 +7,8 @@
 #       INFINIVERB.vst3       into /Library/Audio/Plug-Ins/VST3
 #       INFINIVERB.component  into /Library/Audio/Plug-Ins/Components (AU)
 #     both universal (Apple Silicon and Intel), macOS 10.13 and later
-#   - the corresponding source as a .tar.gz, because the AGPLv3 requires the
-#     source to go with every binary that is conveyed
+# The corresponding source the AGPLv3 asks for is the public repository at
+# the release's tag; the installer's read-me says where.
 #
 # Built in build-universal/, separate from the native development build.
 #
@@ -72,7 +72,6 @@ VST3_PKG="$WORK_DIR/INFINIVERB-VST3.pkg"
 AU_PKG="$WORK_DIR/INFINIVERB-AU.pkg"
 DIST_XML="$WORK_DIR/distribution.xml"
 PKG_OUT="$DIST_DIR/INFINIVERB-$FULL_VERSION-macOS.pkg"
-SOURCE_OUT="$DIST_DIR/INFINIVERB-$FULL_VERSION-source.tar.gz"
 
 step() { printf '\n\033[1;36m==> %s\033[0m\n' "$1"; }
 ok()   { printf '\033[1;32m    ok: %s\033[0m\n' "$1"; }
@@ -86,9 +85,9 @@ step "Preflight checks"
 [ -n "$VERSION" ] || die "Could not read the version from CMakeLists.txt"
 ok "version $FULL_VERSION"
 
-# The source archive must be exactly what the binary was built from.
+# What ships must be exactly a commit, so the source it points to matches.
 [ -z "$(git -C "$BASE_DIR" status --porcelain)" ] \
-  || die "Working tree has uncommitted changes — commit first, so the source archive matches the binary."
+  || die "Working tree has uncommitted changes — commit first, so the release matches a commit."
 ok "working tree clean at $(git -C "$BASE_DIR" rev-parse --short HEAD)"
 
 for f in LICENSE THIRD-PARTY-NOTICES.txt installer/README.txt; do
@@ -169,12 +168,12 @@ ok "both signed, hardened runtime + Developer ID confirmed"
 #-----------------------------------------------------------------------------
 # 3. Build the installer
 #-----------------------------------------------------------------------------
-rm -rf "$WORK_DIR" "$PKG_OUT" "$SOURCE_OUT"
+rm -rf "$WORK_DIR" "$PKG_OUT"
 mkdir -p "$WORK_DIR/vst3" "$WORK_DIR/au" "$RESOURCES_DIR"
 
 # The licence and the notices are shown by the installer and stay with the user.
 cp "$BASE_DIR/LICENSE" "$RESOURCES_DIR/LICENSE.txt"
-{ cat "$BASE_DIR/installer/README.txt"; printf '\n\n'; cat "$BASE_DIR/THIRD-PARTY-NOTICES.txt"; } \
+{ sed "s/{{VERSION}}/$VERSION/g" "$BASE_DIR/installer/README.txt"; printf '\n\n'; cat "$BASE_DIR/THIRD-PARTY-NOTICES.txt"; } \
   > "$RESOURCES_DIR/README.txt"
 
 step "Staging payloads"
@@ -257,22 +256,15 @@ if [ "$DO_NOTARIZE" -eq 1 ]; then
   ok "ticket stapled and validated"
 fi
 
-#-----------------------------------------------------------------------------
-# 5. Corresponding source
-#-----------------------------------------------------------------------------
-step "Archiving the corresponding source"
-git -C "$BASE_DIR" archive --format=tar.gz --prefix="INFINIVERB-$FULL_VERSION-source/" -o "$SOURCE_OUT" HEAD
-ok "$(basename "$SOURCE_OUT")"
-
 rm -rf "$WORK_DIR"
 
 #-----------------------------------------------------------------------------
-# 6. Summary
+# 5. Summary
 #-----------------------------------------------------------------------------
 step "Done"
 echo "    Installer : $PKG_OUT"
 echo "    Size      : $(du -h "$PKG_OUT" | cut -f1)"
-echo "    Source    : $SOURCE_OUT"
+echo "    Source    : https://github.com/bugranayir/INFINIVERB/tree/v$VERSION"
 echo "    Archs     : $ARCHS (macOS 10.13+ on Intel, 11+ on Apple Silicon)"
 echo "    Installs  : $VST3_LOCATION/INFINIVERB.vst3"
 echo "                $AU_LOCATION/INFINIVERB.component"

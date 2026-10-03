@@ -1,5 +1,6 @@
-# Builds the Windows VST3 (x64) of INFINIVERB on every push and pull request,
-# and uploads it as an artifact. The macOS builds are made locally.
+# Builds the Windows VST3 (x64) of INFINIVERB and its installer on every push
+# and pull request, and uploads both as artifacts. The macOS builds and
+# installer are made locally (scripts/package_mac.sh).
 #
 # Actions are pinned to the commit of a release tag, not to the tag itself:
 # a tag can be moved, a commit cannot.
@@ -33,4 +34,23 @@ jobs:
         with:
           name: INFINIVERB-windows-x64-vst3
           path: build/plugin/RVB1_artefacts/Release/VST3/INFINIVERB.vst3
+          retention-days: 14
+
+      # The installer: the read-me with the version filled in and the notices
+      # appended (UTF-8 with a byte-order mark and CRLF, as Inno Setup wants
+      # for a text page), the licence, and the VST3 bundle.
+      - name: Installer
+        run: |
+          $version = (Select-String -Path CMakeLists.txt -Pattern '^project\(RVB1 VERSION ([0-9.]+)').Matches[0].Groups[1].Value
+          New-Item -ItemType Directory -Force build/installer | Out-Null
+          $readme = (Get-Content -Raw installer/windows/README.txt).Replace('{{VERSION}}', $version) + "`n`n" + (Get-Content -Raw THIRD-PARTY-NOTICES.txt)
+          $readme = $readme -replace "`r?`n", "`r`n"
+          [System.IO.File]::WriteAllText("$PWD\build\installer\README.txt", $readme, (New-Object System.Text.UTF8Encoding $true))
+          & "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" "/DAppVersion=$version" "/DVst3Dir=$PWD\build\plugin\RVB1_artefacts\Release\VST3\INFINIVERB.vst3" "/DReadme=$PWD\build\installer\README.txt" "/DLicense=$PWD\LICENSE" "/O$PWD\build\installer" installer\windows\INFINIVERB.iss
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: INFINIVERB-windows-x64-installer
+          path: build/installer/*.exe
           retention-days: 14
